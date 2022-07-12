@@ -1,0 +1,186 @@
+<%- include ('../partials/header.ejs'); %>
+<body id="page-top">
+  
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <%- include('../partials/sidebar.ejs', {section: 'dashboard',user: user}); %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <%- include('../partials/topbar.ejs', {user: user}); %>
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid">
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h4 class="h4 mb-0 pt-1 text-dark-500"><i class="fas fa-futbol"></i> Lista de Partidos</h4>
+          </div>          
+          <!--Pruebas de formulario partidos-->
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Card Input Partido  -->
+            
+            <div class="col-12 mb-1">
+              <form id="inputPartido" data-bind="submit: submitMatchData">
+                <div class="card border-gray-800 bg-gray-300 h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-12 col-lg mr-4 mb-2">
+                          <label for="id-company" class="text-dark font-weight-bold">Partido</label>
+                          <div class="input-group">
+                            <!--<select class="custom-select btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" id="userDelSelect" name="transporte">-->
+                            <select class="selectpicker col-8 col-lg-9 p-0" data-style="selectpicker-append col-sm-auto btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" tabindex="2" data-live-search="true" name="partidoId">
+                              <option value=""  selected disabled hidden>SELECCIONE PARTIDO ...</option>
+                              
+                                    <option value="" disabled>Descripción |  Jornada</option>
+                                  
+                                    <% partidos.forEach((partido) => { %>                                    
+                                        <option value="<%= partido.PartidoID %>"><%= partido.Descripcion+"  "+partido.Jornada %></option>                                    
+                                    <% }) %>
+                                
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-warning" tabindex="5" type="button" name="nuevoPartido" onclick="location.href = '\\football_match\\register';" >Nuevo</button>
+                            </div>
+                          </div>
+                          <small id="id-company-help" class="form-text text-muted d-none d-sm-block">Seleccione un partido de la lista.</small>
+                      </div>
+                      <div class="col-auto mb-2" >
+                          <button type="submit" name="enviar" href="#" tabindex="4" class="btn btn-success btn-circle btn-lg">
+                              <i class="fas fa-plus"></i>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            
+          </div>
+
+        <!-- Content Row Partido -->
+        <!-- ko foreach: lista2() -->
+        
+          <div class="row align-items-center" >
+
+            <!-- Card Partido 1 -->
+            <div class="col-1">
+              <button class="btn btn-secondary" type="button" data-toggle="collapse" data-bind="attr: {'data-target': ('#collapseMatch'+partidoId())}"  aria-expanded="false" aria-controls="collapseMatch">
+                <i class="fas fa-greater-than"></i>
+              </a>
+            </div>
+            <div class="col-1 ">
+              <div class="h6 mb-0 font-weight-bold text-gray-800" data-bind="text: descripcion"></div>
+            </div>
+            <div class="col-2 ">
+              <div class="h6 mb-0 font-weight-bold text-gray-800" data-bind="text: jornada"></div>
+            </div> 
+            <div class="col-1 ">
+              <div class="h6 mb-0 font-weight-bold text-gray-800" data-bind="text: unidadMovil"></div>
+            </div> 
+            <div class="col-2 ">
+              <div class="h6 mb-0 font-weight-bold text-gray-800" data-bind="text: ip"></div>
+            </div>
+            <div class="col-1 ">
+              <div>
+                Registrando
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="d-none">
+                Columna en blanco
+              </div>
+            </div>
+            <div class="col-2">
+              <div>
+                Conexión
+              </div>
+            </div>
+          </div>
+          <div>
+            
+              
+              <button type="button" data-bind="click: $parent.generaTallyAleatorio">Genera nuevo Tally</button>
+            
+          </div>
+           
+          <div class="collapse" data-bind="attr: {id: ('collapseMatch'+partidoId())}" >
+            
+              <div class="card card-body">
+                <div class="d-flex flex-row justify-content-start mb-2">
+                  <div class="h5 mx-2">Registro Tallies</div>
+                  <div class="d-flex align-items-center btn btn-danger btn-lg mx-2" data-bind="click: $parent.finPeriodoActivo"><div>FIN</div></div>
+                  <!-- ko foreach: periodos() -->
+                    <div class="d-flex flex-column justify-content-center mx-2">
+                      <div class="d-flex flex-row justify-content-center">
+                        <div class="mx-2" data-bind="text: horaInicio"></div>
+                        <div class="mx-2" data-bind="text: horaFin"></div>
+                      </div>
+                      <div class="d-flex flex-row justify-content-center mx-2">
+                        <div class="btn btn-outline-secondary" data-bind="text: contador"></div>
+                      </div>
+                      <div class="d-flex flex-row justify-content-center mx-2" data-bind="click: $root.periodClicked">
+                        <div  data-bind="class: ('btn '+ (active() ? 'btn-success' : 'btn-secondary'))"><span data-bind="text: nombre"></span></div>
+                      </div>
+                    </div>
+                  <!-- /ko -->
+                </div>
+                <!-- ko foreach: camaras() -->
+                <!-- <div class="d-flex flex-column align-items-center" data-bind="if: on()">
+                  <div style="width: 250; height: 30px; border: 1px solid black; margin-bottom:  5px;" data-bind="visible: on() == true"><span data-bind="text: contador" ></span></div>
+                  <div style="width: 250; height: 30px; border: 2px solid green; margin-bottom:  10px;" data-bind="visible: on() == true"><span data-bind="text: descripcion"></span></div>
+                </div> -->
+                <!-- /ko -->
+
+                <!-- Inicia sección con las cámaras y sus contadores en una fila. si hay EVSs saldrán en el centro debajo de la fila de cámaras -->
+                <div class="overflow-auto  mb-4">
+                  <div class="d-flex flex-row justify-content-center" data-bind="foreach: camaras()">
+                  
+                    
+                    <div class="d-flex flex-column align-items-center" >
+                      <div  class="form-control-sm">
+                        <span data-bind="text: contador" ></span>
+                      </div>
+                      <div data-bind="class: ('btn btn-sm '+ (on() ? 'btn-success' : 'btn-secondary'))">
+                        <span data-bind="text: descripcion"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- ko foreach: camaras() -->
+                  <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-row justify-content-start" data-bind="if: activeEvs">
+                      <div class="btn btn-secondary btn-lg" data-bind="text: momento">
+                      </div>
+                      <div class="d-flex flex-row justify-content-between" data-bind="foreach: EVSs()">
+                        <a href="#" class="btn btn-info btn-lg active mx-3" role="button" aria-pressed="true" data-bind="text: descripcion"></a>
+                      </div>
+                    </div>
+                  </div>
+                 <!-- /ko -->
+                 
+              </div>
+            
+          </div>
+                      <!-- End Content Row Partido -->
+        <!-- /ko -->
+        </div> <!-- /.container-fluid -->
+      </div> <!-- End of Main Content -->
+    </div>
+  </div>
+  <%- include ('../partials/footer.ejs'); %>
+  <script src="/vendor/knockout-3.5.0.js"></script>
+  <script src="/vendor/moment.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <!-- <script src="/vendor/popper.min.js"></script> -->
+  <script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+</body>
+
+</html>

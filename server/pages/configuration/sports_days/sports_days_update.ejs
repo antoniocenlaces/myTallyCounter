@@ -1,0 +1,104 @@
+<%- include ('../../partials/header.ejs'); %>
+
+  <body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <%- include('../../partials/sidebar.ejs', {section: 'sportsDays' }); %>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+            <%- include('../../partials/topbar.ejs', {user: user}); %>
+
+              <!-- Begin Page Content TODO-->
+              <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800"></i>MODIFICAR JORNADA</h1>
+                  <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+                </div>
+
+                <% var messages=getMessages() %>
+                  <% if (messages.error) { %>
+                    <div class="alert alert-danger col-sm-12">
+                      <%= messages.error %>
+                    </div>
+                    <% } %>
+                      <% if (messages.success) { %>
+                        <div class="alert alert-success col-sm-12">
+                          <%= messages.success %>
+                        </div>
+                        <% } %>
+
+                          <form
+                            action="/configuration/sports_days/update<%= (sDays.length == 1) ? '/' + 'Jornadas.JornadaID' : '' %>"
+                            method="post">
+
+                            <div class="form-group row">
+                              <label for="sportsDayID" class="col-sm-2 col-form-label">Descripción Actual</label>
+
+                              <div class="col-md-4">
+                                <select class="custom-select my-1 mr-sm-2" id="sportsDayID" required name="sportsDayID">
+                                  <% (sDays.length> 1) ? '<option selected>Seleccione Jornada</option>' : '' %>
+                                    <% sDays.forEach((DB_Jornadas, index)=> { %>
+                                      <option value="<%= DB_Jornadas.JornadaID %>">
+                                        <%= DB_Jornadas.Descripcion %>
+                                      </option>
+                                      <% }) %>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="sportsDaysDescription" class="col-sm-2 col-form-label">Nueva Descripción</label>
+                              <div class="col-md-4">
+                                
+                                <input type="text" class="form-control" id="sportsDaysDescription"
+                                  placeholder="Nueva Descripción de Jornada" required name="sportsDaysDescription"
+                                  value="<%= messages.sportsDaysDescription %>">
+                                  
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="dateStartingTime" class="col-sm-2 col-form-label">Fecha (Inicio de Jornada)</label>
+                              <div class="col-md-4">
+                                <input type="date" class="form-control" id="dateStartingTime"
+                                  placeholder="Fecha (Inicio de Jornada)" required name="dateStartingTime"
+                                  value="<%= messages.dateStartingTime %>">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="dateFinishingTime" class="col-sm-2 col-form-label">Fecha (Fin de Jornada)</label>
+                              <div class="col-md-4">
+                                <input type="date" class="form-control" id="dateFinishingTime"
+                                  placeholder="Fecha (Fin de Jornada)" required name="dateFinishingTime"
+                                  value="<%= messages.dateFinishingTime %>">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-md-2"></div>
+                              <div class="col-md-4">
+                                <button type="submit" class="btn btn-lg btn-primary mb-2 btn-block">Modificar Jornada</button>
+                              </div>
+                            </div>
+                          </form>
+
+              </div>
+              <!-- /.container-fluid -->
+
+          </div>
+          <!-- End of Main Content -->
+
+
+          <%- include ('../../partials/footer.ejs'); %>
+
+  </body>
+
+  </html>

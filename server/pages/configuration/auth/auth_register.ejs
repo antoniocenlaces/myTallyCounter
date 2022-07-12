@@ -1,0 +1,74 @@
+<%- include ('../partials/header.ejs'); %>
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <%- include('../partials/sidebar.ejs', {section: 'users'}); %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+          <%- include('../partials/topbar.ejs', {user: user}); %>
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"></i>AUTORIZACIONES</h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+          
+          <% var messages = getMessages() %>
+          <% if (messages.error) { %>
+            <div class="alert alert-danger col-sm-12"><%= messages.error %></div>
+          <% } %>
+          <% if (messages.success) { %>
+            <div class="alert alert-success col-sm-12"><%= messages.success %></div>
+          <% } %>
+          
+          <form action="/configuration/auth/edition" method="post">
+            
+                <div class="form-group row">
+                  <label for="authDescription" class="col-sm-2 col-form-label">Descripción</label>
+                  <div class="col-md-4">
+                     <input type="text" class="form-control" id="authDescription" placeholder="Descripción" required name="authDescription" value="<%= messages.authDescription %>">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputDateStartingTime" class="col-sm-2 col-form-label">Usuarios</label>
+                  <div class="col-md-4">
+                    <input type="date" class="form-control" id="inputDateStartingTime" placeholder="Fecha de Inicio" required name="inputDateStartingTime" value="<%= messages.inputDateStartingTime %>">
+                  </div>
+                </div>
+                        
+                <div class="form-group row">
+                  <label for="inputDateFinishingTime" class="col-sm-2 col-form-label">Configurar_plantillas</label>
+                  <div class="col-md-4">
+                    <input type="date" class="form-control" id="inputDateFinishingTime" placeholder="Fecha de Finalización" required name="inputDateFinishingTime" value="<%= messages.inputDateFinishingTime %>">
+                  </div>
+                </div>
+                
+                <div class="form-group row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                    <button type="submit" class="btn btn-lg btn-success mb-2 btn-block">Registrar Autorización</button>
+                  </div>
+              </div>
+            </form>
+          
+          </div>
+          <!-- /.container-fluid -->
+  
+        </div>
+        <!-- End of Main Content -->
+  
+
+  <%- include ('../partials/footer.ejs'); %>
+  
+</body>
+  
+</html>

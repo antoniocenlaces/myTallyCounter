@@ -1,0 +1,213 @@
+<%- include ('../partials/header.ejs'); %>
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <%- include('../partials/sidebar.ejs', {section: 'dashboard',user: user}); %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <%- include('../partials/topbar.ejs', {user: user}); %>
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-truck mr-2"></i>Edición Lista de Avisos a Camiones</h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+
+          
+          <!-- Content Row -->
+          <div class="row">
+
+              <!-- Card Input Truck  -->
+              
+              <div class="col-12 mb-1">
+                <form id="inputTruck" data-bind="submit: submitTruckData">
+                <div class="card border-gray-800 bg-gray-300 h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-12 col-lg mr-4 mb-2">
+                          <label for="id-truck" class="text-dark font-weight-bold d-lg-none d-xl-block">MATRÍCULA / NUMBER</label>
+                          <label for="id-truck" class="text-dark font-weight-bold d-none d-lg-block d-xl-none">MATRÍCULA</label>
+                          <input type="text" class="form-control bg-light border-0 text-uppercase text-lg" placeholder="Matrícula..." id="id-truck" maxlength="15" tabindex="1" aria-label="id-truck" aria-describedby="basic-addon2" name="matricula" required>
+                          <small id="id-truck-help" class="form-text text-muted d-none d-sm-block">Introduzca la matrícula.</small>
+                      </div>
+                      <div class="col-12 col-lg mr-4 mb-2">
+                          <label for="id-company" class="text-dark font-weight-bold">TRANSPORTE / CARRIER</label>
+                          <div class="input-group">
+                            <!--<select class="custom-select btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" id="userDelSelect" name="transporte">-->
+                            <select class="selectpicker col-8 col-lg-9 p-0"  data-style="selectpicker-append col-sm-auto btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" tabindex="2" data-live-search="true" name="transporte">
+                              <option value=""  selected>SELECCIONE EMPRESA ...</option>
+                              <% transports.forEach((transport, index) => { %>
+                              <option value="<%= transport.name %>"><%= transport.name %></option>
+                              <% }) %>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-warning" tabindex="5" type="button" name="editar" onclick="location.href = '\\admin\\carrier';" >Editar</button>
+                            </div>
+                          </div>
+                          <small id="id-company-help" class="form-text text-muted d-none d-sm-block">Seleccione la empresa de transporte.</small>
+                      </div>
+                      <div class="col-9 col-lg-3 mr-4 mb-2">
+                        <label for="id-dock" class="text-dark font-weight-bold">PUERTA / DOCK</label>
+                        <input type="text" class="form-control bg-light border-0 text-uppercase text-lg" placeholder="Dock ..." maxlength="15" id="id-dock" tabindex="3" aria-label="id-dock" aria-describedby="basic-addon2" name="dock" required>
+                        <small id="id-dock-help" class="form-text text-muted d-none d-sm-block d-lg-none d-xl-block">Introduzca la puerta de carga o descarga.</small>
+                        <small id="id-dock-help1" class="form-text text-muted d-none d-lg-block d-xl-none">Introduzca la puerta.</small>
+                      </div>
+                      <!--
+                      <div class="col-1 mr-4 d-none d-xl-block" >
+                        <i class="fas fa-truck fa-2x text-white "></i>
+                      </div>
+                      -->
+                      <div class="col-auto mb-2" >
+                          <button type="submit" name="enviar" href="#" tabindex="4" class="btn btn-success btn-circle btn-lg">
+                              <i class="fas fa-plus"></i>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </div>
+          
+          <!--Pruebas de formulario partidos-->
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Card Input Partido  -->
+            
+            <div class="col-12 mb-1">
+              <form id="inputPartido" data-bind="submit: submitMatchData">
+              <div class="card border-gray-800 bg-gray-300 h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-12 col-lg mr-4 mb-2">
+                        <label for="id-company" class="text-dark font-weight-bold">Partido</label>
+                        <div class="input-group">
+                          <!--<select class="custom-select btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" id="userDelSelect" name="transporte">-->
+                          <select class="selectpicker col-8 col-lg-9 p-0"  data-style="selectpicker-append col-sm-auto btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" tabindex="2" data-live-search="true" name="partidoId">
+                            <option value=""  selected disabled hidden>SELECCIONE PARTIDO ...</option>
+                             
+                                  <option value="" disabled>Descripción |  Jornada</option>
+                                
+                                  <% partidos.forEach((partido) => { %>                                    
+                                      <option value="<%= partido.PartidoID %>"><%= partido.Descripcion+"  "+partido.Jornada %></option>                                    
+                                  <% }) %>
+                               
+                          </select>
+                          <div class="input-group-append">
+                              <button class="btn btn-warning" tabindex="5" type="button" name="nuevoPartido" onclick="location.href = '\\football_match\\register';" >Nuevo</button>
+                          </div>
+                        </div>
+                        <small id="id-company-help" class="form-text text-muted d-none d-sm-block">Seleccione un partido de la lista.</small>
+                    </div>
+                   
+                    
+                    <!--
+                    <div class="col-1 mr-4 d-none d-xl-block" >
+                      <i class="fas fa-truck fa-2x text-white "></i>
+                    </div>
+                    -->
+                    <div class="col-auto mb-2" >
+                        <button type="submit" name="enviar" href="#" tabindex="4" class="btn btn-success btn-circle btn-lg">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          </div>
+
+
+          <!-- Content Row Truck -->
+          <!-- ko foreach: lista() -->
+          <div class="row" style="display:none" data-bind="css: {'d-block': matricula || transporte || dock}">
+
+            <!-- Card Truck 1 -->
+            <div class="col-12 mb-1">
+              <div class="card border-left-success shadow h-100 py-2" data-bind="css: {flash: blinked(), remove: removeBlink()}"> <!-- add bg-warning to blink -->
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center text-center">
+                    <div class="col-1 d-none d-xl-block">
+                          <i class="fas fa-truck fa-3x text-gray-600"></i>
+                    </div>
+                    <div class="col-12 col-lg">
+                            <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: matricula"></div>
+                    </div>
+                      <div class="col-12 col-lg">
+                        <div data-bind="if: transport_full">
+                          <img class="img-carrier max-height-item-dashboard" data-bind="attr:{src: transport_full.logo}" /> 
+                        </div> 
+                        <div  data-bind="ifnot: transport_full">    
+                          <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: transporte"></div> 
+                        </div>
+                      </div>
+                      <div class="col-9 col-lg-3 mr-4">
+                        <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: dock"></div>
+                    </div> 
+                    <div class="col-auto">
+                        <button data-bind="click: $parent.deleteTruck" class="btn btn-danger btn-circle btn-lg">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Content Row Truck -->
+          </div>
+          <!-- /ko -->
+          <!-- Content Row Partido -->
+          <!-- ko foreach: lista2() -->
+            <div class="row" >
+
+              <!-- Card Partido 1 -->
+              <div class="col-12 mb-1">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center text-center">
+                    <div class="col-12 col-lg">
+                            <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: descripcion"></div>
+                    </div>
+                      
+                      <div class="col-6 col-lg-3 mr-4">
+                        <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: jornada"></div>
+                    </div> 
+                    <div class="col-6 col-lg-3 mr-4">
+                      <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: unidadMovil"></div>
+                    </div> 
+                    <div class="col-6 col-lg-3 mr-4">
+                      <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: ip"></div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+              <!-- End Content Row Partido -->
+            </div>
+            <!-- /ko -->
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+    </div>
+</div>
+<%- include ('../partials/footer.ejs'); %>
+<script src="/vendor/knockout-3.5.0.js"></script>
+<script src="/vendor/moment.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/dashboard.js"></script>
+<!-- <script src="/vendor/popper.min.js"></script> -->
+<script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+</body>
+
+</html>

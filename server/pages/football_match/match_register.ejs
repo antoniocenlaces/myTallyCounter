@@ -1,0 +1,178 @@
+<%- include ('../partials/header.ejs'); %>
+
+  <body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <%- include('../partials/sidebar.ejs', {section: 'sportsDayMatch' }); %>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+            <%- include('../partials/topbar.ejs', {user: user}); %>
+
+              <!-- Begin Page Content TODO-->
+              <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800"></i>REGISTRAR NUEVO PARTIDO</h1>
+                </div>
+
+                <% var messages=getMessages() %>
+                  <% if (messages.error) { %>
+                    <div class="alert alert-danger col-sm-12">
+                      <%= messages.error %>
+                    </div>
+                    <% } %>
+                      <% if (messages.success) { %>
+                        <div class="alert alert-success col-sm-12">
+                          <%= messages.success %>
+                        </div>
+                        <% } %>
+
+                          <form action="/football_match/register" method="post">
+                            <fieldset>
+                              <legend><strong>DATOS DEL PARTIDO</strong></legend>
+                              <div class="form-group row">
+                                <label for="matchSportsDay" class="col-sm-2 col-form-label">Descripción de la
+                                  Jornada</label>
+                                <div class="col-md-4">
+                                  <select class="custom-select my-1 mr-sm-2" id="matchSportsDay" name="matchSportsDay"
+                                    required>
+                                    <option selected disabled>Seleccione una opción</option>
+                                    <% jornadas.forEach((DB_Jornadas)=> { %>
+                                      <option value="<%= DB_Jornadas.JornadaID %>">
+                                        <%= DB_Jornadas.Descripcion %>
+                                      </option>
+                                      <% }) %>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="matchReference" class="col-sm-2 col-form-label">Ref. Partido</label>
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control" id="matchReference" placeholder="Ej.: ZGZ-RMD"
+                                    required name="matchReference" value="<%= messages.matchReference %>">
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="assignedMobileUnit" class="col-sm-2 col-form-label">Nombre de la Unidad
+                                  Móvil</label>
+                                <div class="col-md-4">
+                                  <select class="custom-select my-1 mr-sm-2" id="assignedMobileUnit"
+                                    name="assignedMobileUnit" required>
+                                    <option selected disabled>Seleccione una opción</option>
+                                    <% unidadesMoviles.forEach((DB_Unidades_Moviles)=> { %>
+                                      <option value="<%= DB_Unidades_Moviles.UMID %>">
+                                        <%= DB_Unidades_Moviles.Nombre %>
+                                      </option>
+                                      <% }) %>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="assignedIPAddress" class="col-sm-2 col-form-label">Dirección IP
+                                  Asignada</label>
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control" id="assignedIPAddress"
+                                    placeholder="Ej.: 192.168.0.18" required name="assignedIPAddress"
+                                    value="<%= messages.ipAddress %>">
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="assignedProducer" class="col-sm-2 col-form-label">Nombre del
+                                  Realizador</label>
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control" id="assignedProducer"
+                                    placeholder="Ej.: José Fernández" required name="assignedProducer"
+                                    value="<%= messages.producer %>">
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label for="assignedMixer" class="col-sm-2 col-form-label">Nombre de la
+                                  Mezcladora</label>
+                                <div class="col-md-4">
+                                  <select class="custom-select my-1 mr-sm-2" id="assignedMixer" name="assignedMixer"
+                                    required>
+                                    <option selected disabled>Seleccione una opción</option>
+                                    <% mezcladoras.forEach((DB_Mezcladoras)=> { %>
+                                      <option value="<%= DB_Mezcladoras.MezcladoraID %>">
+                                        <%= DB_Mezcladoras.Nombre %>
+                                      </option>
+                                      <% }) %>
+                                  </select>
+                                </div>
+                              </div>
+                            </fieldset>
+
+                            <fieldset>
+                              <legend><strong>ASIGNACIÓN DE PERIODOS DE TIEMPO</strong></legend>
+                            </fieldset>
+
+                            <fieldset>
+                              <legend><strong>ASOCIACIÓN DE ENTRADAS</strong></legend>
+                              <div class="form-group row">
+                                <label for="assignedMixer" class="col-sm-2 col-form-label">Entrada</label>
+                                <div class="" style="display:inline">
+                                  <span style="display:inline">
+                                    <select class="custom-select my-1 mr-sm-2" id="camara" name="camara" required>
+                                      <option selected disabled>Seleccione una opción</option>
+                                      <% entradas.forEach((DB_Camaras)=> { %>
+                                        <option value="<%= DB_Camaras.CamaraID %>">
+                                          <%= DB_Camaras.Descripcion %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+
+                                    <select class="custom-select my-1 mr-sm-2" id="assignedMixerInput"
+                                      name="assignedMixerInput" required>
+                                      <option selected disabled>Seleccione una opción</option>
+                                      <% camaras.forEach((DB_Entradas_mezcladora)=> { %>
+                                        <option value="<%= DB_Entradas_mezcladora.EMID %>">
+                                          <%= DB_Entradas_mezcladora.Descripcion_camara %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                  </span>
+                                </div>
+
+                              </div>
+                              <button type="submit" class="btn btn-lg btn-success mb-2">Insertar</button>
+                              <button type="submit" class="btn btn-lg btn-danger mb-2">Borrar</button>
+                            </fieldset>
+
+                            <div class="form-group row">
+                              <div class="col-md-2"></div>
+                              <div class="col-md-4">
+                                <button type="submit" class="btn btn-lg btn-success mb-2 btn-block">Registrar Nuevo
+                                  Partido</button>
+                              </div>
+                            </div>
+
+                          </form>
+                          <p id="demo1"></p>
+                          <p id="demo11"></p>
+              </div>
+              <!-- /.container-fluid -->
+
+          </div>
+          <!-- End of Main Content -->
+
+          <%- include ('../partials/footer.ejs'); %>
+            <!--
+            <script>
+              document.getElementById("demo1").innerHTML = `"matchSportsDay" es de tipo "${typeof matchSportsDay}"`;
+              document.getElementById("demo11").innerHTML = `"matchSportsDay.value" es de tipo "${typeof matchSportsDay.value}"`;
+            </script>
+          -->
+  </body>
+
+  </html>

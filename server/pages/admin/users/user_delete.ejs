@@ -1,0 +1,68 @@
+<%- include ('../../partials/header.ejs'); %>
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+      <%- include('../../partials/sidebar.ejs', {section: 'users'}); %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+          <%- include('../../partials/topbar.ejs', {user: user}); %>
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-user-slash mr-2"></i>Borrar Usuario</h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+          <% var messages = getMessages() %>
+          <% if (messages.error) { %>
+            <div class="alert alert-danger col-sm-12"><%= messages.error %></div>
+          <% } %>
+          <% if (messages.success) { %>
+            <div class="alert alert-success col-sm-12"><%= messages.success %></div>
+          <% } %>
+          <form action="/admin/users/delete" method="post" id="deleteForm">
+              <div class="form-group row">
+                <label for="staticUser" class="col-sm-2 col-form-label">Usuario</label>
+                <div class="col-md-4">
+                    <select class="custom-select my-1 mr-sm-2" id="userDelSelect" name="userid" required>
+                        <option selected>Seleccione usuario</option>
+                        <% users.forEach((user, index) => { %>
+                        <option value="<%= user.id %>"<% if (messages.userid == user.id) { %> selected<% } %>><%= user.username %></option>
+                        <% }) %>
+                      </select>
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">
+                   <a href="#" class="btn btn-lg btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteUserModal">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-trash"></i>
+                        </span>
+                        <span class="text">Borrar Usuario</span>
+                      </a>
+                  </div>
+              </div>
+            </form>
+
+
+          </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+<%- include ('../../partials/footer.ejs'); %>
+
+</body>
+
+</html>

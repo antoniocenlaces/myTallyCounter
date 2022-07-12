@@ -1,0 +1,9 @@
+2022-06-06 15:05:36 Escuchando conexiones - sockets
+2022-06-06 15:05:36 Connected to database
+2022-06-06 15:05:36 DS Tiny: send: http://192.168.0.19X/api/reboot
+2022-06-06 15:05:36 DS Tiny: send: http://192.168.0.19X/api/reboot
+2022-06-06 15:05:36 BD Truck Checked: (Rows matched: 0  Changed: 0  Warnings: 0 )
+2022-06-06 15:05:36 App Version: 1.0.1
+2022-06-06 15:05:36 Servidor 192.168.0.110 corriendo en el puerto 5000
+2022-06-06 15:05:36 DS Tiny: 192.168.0.19X Error HTTP Get getaddrinfo ENOTFOUND 192.168.0.19x
+2022-06-06 15:05:36 DS Tiny: 192.168.0.19X Error HTTP Get getaddrinfo ENOTFOUND 192.168.0.19x

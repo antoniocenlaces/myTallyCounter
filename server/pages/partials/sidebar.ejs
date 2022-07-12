@@ -1,0 +1,271 @@
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+    <div class="sidebar-brand-icon">
+      <img class="img-profile rounded-circle" src="/img/Amazon-Simbolo-60x60.png" alt="Logo Empresa">
+    </div>
+    <!--
+    <div class="sidebar-brand-text mx-3">Lista Camiones</div>
+    -->
+  </a>  
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">JORNADA</div>
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item <%= (section == 'dashboard') ? ' active': '' %>">
+    <a class="nav-link" href="/admin">
+      <span>Partidos de la Jornada
+      </span></a>
+  </li>
+  
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">PARTIDOS</div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item <%= (section == 'users') ? ' active': '' %>">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages01" aria-expanded="true" aria-controls="collapsePages01">
+        <span>Gestión de Partidos</span>
+      </a>
+      <div id="collapsePages01" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Seleccione:</h6>
+          <a class="collapse-item" href="/football_match/register">Registrar Nuevo</a>
+          <a class="collapse-item" href="/football_match/modify">Modificar</a>
+          <a class="collapse-item" href="/football_match/delete">Borrar</a>
+          <a class="collapse-item" href="/football_match/select">Seleccionar</a>
+        </div>
+      </div>
+    </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">INFORMES</div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item <%= (section == 'users') ? ' active': '' %>">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages02" aria-expanded="true" aria-controls="collapsePages02">
+        <span>Gestión de Informes</span>
+      </a>
+      <div id="collapsePages02" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Seleccione:</h6>
+          <a class="collapse-item" href="/report/create">Crear</a>           
+        </div>
+      </div>
+    </li>
+
+  
+  <!-- Heading -->
+  <% if (user.username == 'admin') { %>
+    
+    <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">CONFIGURACIÓN</div> 
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <!--
+  <li class="nav-item <%= (section == 'auth') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0301" aria-expanded="true" aria-controls="collapsePages0301">
+      <span>Autorizaciones</span>
+    </a>
+    <div id="collapsePages0301" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/auth/register">Registrar Nueva</a>
+        <a class="collapse-item" href="/configuration/auth/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/auth/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+  -->
+  <li class="nav-item <%= (section == 'cameras') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0302" aria-expanded="true" aria-controls="collapsePages0302">
+      <span>Cámaras</span>
+    </a>
+    <div id="collapsePages0302" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-1 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/cameras/register">Registrar Nueva</a>
+        <a class="collapse-item" href="/configuration/cameras/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/cameras/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item <%= (section == 'mixer_inputs') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0303" aria-expanded="true" aria-controls="collapsePages0303">
+      <span>Entradas a Mezcladora</span>
+    </a>
+    <div id="collapsePages0303" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-1 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/mixer_inputs/register">Registrar Nueva</a>
+        <a class="collapse-item" href="/configuration/mixer_inputs/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/mixer_inputs/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+  
+  <li class="nav-item <%= (section == 'sports_days') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0304" aria-expanded="true" aria-controls="collapsePages0304">
+      <span>Jornadas</span>
+    </a>
+    <div id="collapsePages0304" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-1 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/sports_days/register">Registrar Nueva</a>
+        <a class="collapse-item" href="/configuration/sports_days/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/sports_days/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+  
+  <li class="nav-item <%= (section == 'mixers') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0305" aria-expanded="true" aria-controls="collapsePages0305">
+      <span>Mezcladoras</span>
+    </a>
+    <div id="collapsePages0305" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-1 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/mixers/register">Registrar Nueva</a>
+        <a class="collapse-item" href="/configuration/mixers/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/mixers/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+  
+  <li class="nav-item <%= (section == 'match_periods') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0306" aria-expanded="true" aria-controls="collapsePages0306">
+      <span>Periodos</span>
+    </a>
+    <div id="collapsePages0306" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-1 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/match_periods/register">Registrar Nuevo</a>
+        <a class="collapse-item" href="/configuration/match_periods/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/match_periods/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+  
+  <li class="nav-item <%= (section == 'mobile_units') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages0307" aria-expanded="true" aria-controls="collapsePages0307">
+      <span>Unidades Móviles</span>
+    </a>
+    <div id="collapsePages0307" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-1 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/mobile_units/register">Registrar Nueva</a>
+        <a class="collapse-item" href="/configuration/mobile_units/update">Modificar</a>
+        <a class="collapse-item" href="/configuration/mobile_units/delete">Borrar</a>
+      </div>
+    </div>
+  </li>
+
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Heading 
+<div class="sidebar-heading">CONFIGURACIÓN (Opción 1)</div>
+-->
+<!-- Nav Item - Pages Collapse Menu 
+  <li class="nav-item <%= (section == 'users') ? ' active': '' %>">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages03" aria-expanded="true" aria-controls="collapsePages03">
+      <span>Gestión de Tablas</span>
+    </a>
+      <div id="collapsePages03" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Seleccione:</h6>
+        <a class="collapse-item" href="/configuration/auth">Autorizaciones</a>
+        <a class="collapse-item" href="/configuration/cameras">Cámaras</a>
+        <a class="collapse-item" href="/configuration/mixer_inputs">Entradas</a>
+        <a class="collapse-item" href="/configuration/sports_days">Jornadas</a>
+        <a class="collapse-item" href="/configuration/mixers">Mezcladoras</a>
+        <a class="collapse-item" href="/configuration/match_periods">Periodos</a>
+        <a class="collapse-item" href="/configuration/mobile_units">Uds. Móviles</a>
+        <!-- <a class="collapse-item" href="/configuration/template">Plantilla</a> -->
+        <!-- <a class="collapse-item" href="/configuration/loadded_template">Plantillas Cargada</a> -->
+        <!--
+      </div>
+    </div>
+  </li>
+-->
+
+
+<!-- Divider 
+<hr class="sidebar-divider">
+-->
+  <!-- Heading -->
+    <div class="sidebar-heading">USUARIOS</div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item <%= (section == 'users') ? ' active': '' %>">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages4">
+        <span>Gestión de Usuarios</span>
+      </a>
+      <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Seleccione:</h6>
+          <a class="collapse-item" href="/admin/users/create">Registrar Nuevo</a>
+          <a class="collapse-item" href="/admin/users/update">Modificar</a>
+          <a class="collapse-item" href="/admin/users/delete">Borrar</a>
+        </div>
+      </div>
+    </li>
+    <% } %>
+
+
+
+<!--
+    <div class="nav">
+      <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <div class="sb-nav-link-icon"></div>
+          Pages
+          <div class="sb-sidenav-collapse-arrow"><svg class="svg-inline--fa fa-angle-down" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"></path></svg><!-- <i class="fas fa-angle-down"></i> Font Awesome fontawesome.com</div>
+      </a>
+      <div class="collapse show" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion" style="">
+          <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+              <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="true" aria-controls="pagesCollapseAuth">
+                  Authentication
+                  <div class="sb-sidenav-collapse-arrow"><svg class="svg-inline--fa fa-angle-down" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"></path></svg><!-- <i class="fas fa-angle-down"></i> Font Awesome fontawesome.com</div>
+              </a>
+              <div class="collapse show" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages" style="">
+                  <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="login.html">Login</a>
+                      <a class="nav-link" href="register.html">Register</a>
+                      <a class="nav-link" href="password.html">Forgot Password</a>
+                  </nav>
+              </div>
+          </nav>
+      </div>
+    </div>
+  -->
+
+
+
+
+
+
+
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0 d-none" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->

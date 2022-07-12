@@ -1,0 +1,165 @@
+<%- include ('partials/header.ejs'); %>
+<body id="page-top" class="h-100">
+  <!-- Page Wrapper -->
+  <div id="wrapper" class="h-100">
+
+        <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column"> <!-- class="d-flex flex-column" -->
+   
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="bg-dark  mb-3 p-2 static-top shadow">
+          <div class="row">
+              <div class="col">
+                <div class="row">
+                  <div class="col-auto ">
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-left" href="index.html">
+                      <div class="sidebar-brand-icon">
+                        <img class="img-profile bg-white mx-1 px-5" src="./img/Amazon-Logo-114x60.png">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col">
+                    <div class="h1 text-center text-white font-weight-bold text-uppercase my-auto d-block" data-bind="css: {flashpage: pageblinked(),'d-block': serverConnection()}"> Lista Avisos Camiones&nbsp; <strong> <span data-bind="text: currentPageIndex()+1"></span> / <span data-bind="text: maxPageIndex()+1"></span></strong></div>
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                <!-- Info Card Truck  -->
+                  <div class="col">
+                    <div class="bg-dark h-100 mx-5">
+                      <div class="row no-gutters align-items-center text-center">
+                          <div class="col-1 d-none d-xl-block" >
+                              <label for="id-hour" class="h1 text-gray-200 font-weight-bold my-auto" data-bind="date: now(), text: now"></label>
+                            </div>
+                          <div class="col-4">
+                              <label for="id-truck" class="h2 text-gray-200 font-weight-bold my-auto">MATRÍCULA / NUMBER</label>
+                          </div>
+                          <div class="col-4">
+                              <label for="id-carrier" class="h2 text-gray-200 font-weight-bold my-auto">TRANSPORTE / CARRIER</label>
+                          </div>
+                          <div class="col-3">
+                            <label for="id-dock" class="h2 text-gray-200 font-weight-bold my-auto">PUERTA / DOCK</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> <!--end col-->
+              <div class="col-auto" data-bind="css: {'d-none': serverConnection()}">
+                  <img class="img-fluid float-left my-auto" style="height: 100px"  src="img/server4-disconect.png">
+              </div>
+          </div>    
+        </nav>
+        <!-- End of Topbar -->
+        
+        <!-- Info Cols 
+        <nav class="bg-dark  mb-3 static-top shadow">
+              
+        </nav>-->
+        <!-- End of Topbar -->    
+
+        
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid d-none" data-bind="css: {'d-block': paginated().length == 0}">
+                            <!-- Outer Row -->
+              <div class="row mt-5">
+                  <img class="col img-portada" src="img/portada-display.png">
+              </div>
+      </div>
+
+        <div class="container-fluid" data-bind="foreach: paginated,css: {'d-none': paginated().length == 0}">
+               
+          <!-- Content Row Truck -->
+          <div class="row" style="display:none" data-bind="css: {'d-block': matricula || transporte || dock}">
+
+            <!-- Card Truck -->
+            <div class="col-12 mb-1">
+              <div class="card border-left-success shadow h-100 py-2" data-bind="css: {flash: blinked(), remove: removeBlink()}"> <!-- add bg-warning to blink -->
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center text-center max-height-item" >
+                    <div class="col-1 d-none d-xl-block">
+                          <i class="fas fa-truck fa-3x text-gray-600"></i>
+                    </div>
+                    <div class="col-4">
+                         <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: matricula"></div>
+                    </div>
+                    <div class="col-4" >        
+                      <div data-bind="if: transport_full">
+                        <img class="img-carrier max-height-item" data-bind="attr:{src: transport_full.logo}" /> 
+                      </div> 
+                      <div  data-bind="ifnot: transport_full">     
+                        <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: transporte"></div> 
+                      </div>
+                   </div>
+                   <div class="col-3">
+                      <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: dock"></div>
+                   </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+           <!-- End Content Row Truck -->
+        </div>
+
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+  
+      <!-- Footer -->
+      <footer class="footer mt-auto">  <!--sticky-footer bg-white py-3 -->
+        <div class="container ">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Amazon 2019 (versión <%= appVersion %>)</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+     
+    </div>
+    <!-- End of Content Wrapper -->
+
+    
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/knockout-3.5.0.js"></script>
+  <script src="vendor/moment.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <!--<script src="vendor/chart.js/Chart.min.js"></script>-->
+
+  <!-- Page level custom scripts -->
+  <!--<script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-pie-demo.js"></script>-->
+
+  <!-- Custom scripts for this page-->
+  <script src="js/display.js"></script>
+
+
+</body>
+
+</html>

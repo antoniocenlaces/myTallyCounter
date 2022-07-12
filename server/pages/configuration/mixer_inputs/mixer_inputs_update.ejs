@@ -1,0 +1,95 @@
+<%- include ('../../partials/header.ejs'); %>
+  <body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <%- include('../../partials/sidebar.ejs', {section: 'mixerInputs' }); %>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+            <%- include('../../partials/topbar.ejs', {user: user}); %>
+
+              <!-- Begin Page Content TODO-->
+              <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800"></i>MODIFICAR ENTRADA A MEZCLADORA</h1>
+                </div>
+
+                <% var messages=getMessages() %>
+                  <% if (messages.error) { %>
+                    <div class="alert alert-danger col-sm-12">
+                      <%= messages.error %>
+                    </div>
+                    <% } %>
+                      <% if (messages.success) { %>
+                        <div class="alert alert-success col-sm-12">
+                          <%= messages.success %>
+                        </div>
+                        <% } %>
+
+                          <form
+                            action="/configuration/mixer_inputs/update<%= (mixerInputs.length == 1) ? '/' + 'Entradas.EntradaID' : '' %>"
+                            method="post">
+
+                            <div class="form-group row">
+                              <label for="mixerInputID" class="col-sm-2 col-form-label">Descripción Actual</label>
+                              <div class="col-md-4">
+                                <select class="custom-select my-1 mr-sm-2" id="mixerInputID" required name="mixerInputID">
+                                  <% (mixerInputs.length > 1) ? '<option selected>Seleccione Entrada a Mezcladora</option>' : '' %>
+                                    <% mixerInputs.forEach((DB_Entradas)=> { %>
+                                      <option value="<%= DB_Entradas.EntradaID %>">
+                                        <%= DB_Entradas.Descripcion %>
+                                      </option>
+                                      <% }) %>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="mixerInputDescription" class="col-sm-2 col-form-label">Nueva Descripcion de la Entrada a Mezcladora</label>
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="mixerInputDescription"
+                                  placeholder="Nueva Descripcion de la Entrada a Mezcladora" required name="mixerInputDescription"
+                                  value="<%= messages.mixerInputDescription %>">
+                                  
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="isEVS" class="col-sm-2 col-form-label">¿Es de tipo EVS?</label>
+                              <% { if (messages.isEVS==0 || messages.isEVS==null) {evsYesValue='' ; evsNoValue='checked'
+                                ;} else { evsYesValue='checked' ; evsNoValue='' ; } %>
+                                <div class="col-md-4" required>
+                                  <input type="radio" id="evs_yes" name="isEVS" value="1" <%=evsYesValue %>>
+                                  <label for="evs_yes" class="col-sm-2 col-form-label">SI</label>
+                                  <input type="radio" id="evs_no" name="isEVS" value="0" <%=evsNoValue %>>
+                                  <label for="evs_no" class="col-sm-2 col-form-label">NO</label>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form-group row">
+                              <div class="col-md-2"></div>
+                              <div class="col-md-4">
+                                <button type="submit" class="btn btn-lg btn-primary mb-2 btn-block">Modificar Entrada a Mezcladora</button>
+                              </div>
+                            </div>
+                          </form>
+
+              </div>
+              <!-- /.container-fluid -->
+
+          </div>
+          <!-- End of Main Content -->
+
+
+          <%- include ('../../partials/footer.ejs'); %>
+
+  </body>
+
+  </html>

@@ -1,0 +1,136 @@
+<%- include ('../partials/header.ejs'); %>
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <%- include('../partials/sidebar.ejs', {section: 'dashboard',user: user}); %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <%- include('../partials/topbar.ejs', {user: user}); %>
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <!--<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+          </div>
+
+          
+          <!-- Content Row -->
+          <div class="row">
+
+              <!-- Card Input Truck  -->
+              
+              <div class="col-12 mb-1">
+                <form id="inputTruck" data-bind="submit: submitTruckData">
+                <div class="card border-gray-800 bg-gray-300 h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-4">
+                          <label for="id-truck" class="text-dark font-weight-bold">MATRÍCULA / NUMBER</label>
+                          <input type="text" class="form-control bg-light border-0 text-uppercase text-lg" placeholder="Matrícula..." id="id-truck" aria-label="id-truck" aria-describedby="basic-addon2" name="matricula" required>
+                          <small id="id-truck-help" class="form-text text-muted">Introduzca la matrícula del camión.</small>
+                      </div>
+                      <div class="col mr-4">
+                          <label for="id-company" class="text-dark font-weight-bold">TRANSPORTE / CARRIER</label>
+                          <div class="input-group">
+                            <!--  <select class="custom-select btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" id="userDelSelect" name="transporte">-->
+                            <select class="selectpicker  text-uppercase text-lg btn-block text-left" data-live-search="true" name="transporte">
+                              <option value="" selected>SELECCIONE EMPRESA ...</option>
+                              <% transports.forEach((transport, index) => { %>
+                              <option value="<%= transport.name %>"><%= transport.name %></option>
+                              <% }) %>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-warning" type="button" onclick="location.href = '\\admin\\carrier';" >Editar</button>
+                            </div>
+                          </div>
+                          <small id="id-company-help" class="form-text text-muted">Seleccione la empresa de transporte.</small>
+                      </div>
+                      <div class="col mr-4">
+                        <label for="id-dock" class="text-dark font-weight-bold">PUERTA / DOCK</label>
+                        <input type="text" class="form-control bg-light border-0 text-uppercase text-lg" placeholder="Dock ..." id="id-dock" aria-label="id-dock" aria-describedby="basic-addon2" name="dock" required>
+                        <small id="id-dock-help" class="form-text text-muted">Introduzca la puerta de carga o descarga.</small>
+                      </div>
+                      <!--
+                      <div class="col-1 mr-4 d-none d-xl-block" >
+                        <i class="fas fa-truck fa-2x text-white "></i>
+                      </div>
+                      -->
+                      <div class="col-auto">
+                          <button type="submit" href="#" class="btn btn-success btn-circle btn-lg">
+                              <i class="fas fa-plus"></i>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </div>
+          
+          
+          <!-- Content Row Truck -->
+          <!-- ko foreach: lista() -->
+          <div class="row" style="display:none" data-bind="css: {'d-block': matricula || transporte || dock}">
+
+            <!-- Card Truck 1 -->
+            <div class="col-12 mb-1">
+              <div class="card border-left-success shadow h-100 py-2" data-bind="css: {flash: blinked()}"> <!-- add bg-warning to blink -->
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center text-center">
+                    <div class="col-1 d-none d-xl-block">
+                          <i class="fas fa-truck fa-3x text-gray-600"></i>
+                    </div>
+                    <div class="col-3">
+                            <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: matricula"></div>
+                    </div>
+                      <div class="col-4">
+                        <div data-bind="if: transport_full">
+                          <img class="img-carrier" data-bind="attr:{src: transport_full.logo}" /> 
+                        </div> 
+                        <div  data-bind="ifnot: transport_full">    
+                          <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: transporte"></div> 
+                        </div>
+                      </div>
+                      <div class="col mr-4">
+                        <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: dock"></div>
+                    </div> 
+                    <div class="col-auto">
+                        <button data-bind="click: $parent.deleteTruck" class="btn btn-danger btn-circle btn-lg">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Content Row Truck -->
+          </div>
+          <!-- /ko -->
+
+          </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      
+<%- include ('../partials/footer.ejs'); %>
+<script src="/vendor/knockout-3.5.0.js"></script>
+<script src="/vendor/moment.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/dashboard.js"></script>
+<script src="/vendor/popper.min.js"></script>
+<script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+</body>
+
+</html>

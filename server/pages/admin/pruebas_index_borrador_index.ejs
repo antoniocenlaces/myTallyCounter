@@ -1,0 +1,131 @@
+<%- include ('../partials/header.ejs'); %>
+<body id="page-top">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .tipoPartido {
+      display: grid;
+      grid-template-columns: 20% 80%;
+    }
+    .botonesPartido {
+      display:grid;
+      grid-template-columns: 80% 20%;
+    }
+  </style>
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <%- include('../partials/sidebar.ejs', {section: 'dashboard',user: user}); %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <%- include('../partials/topbar.ejs', {user: user}); %>
+
+        <!-- Begin Page Content TODO-->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="tipoPartido">
+            <h4 class="h4 mb-0 pt-1 text-dark-500"><i class="fas fa-soccer-ball-o"></i> Lista de Partidos</h4>
+            <form id="inputPartido" data-bind="submit: submitMatchData">
+                  <div class="input-group">
+                    <!--<select class="custom-select btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" id="userDelSelect" name="transporte">-->
+                    <select class="selectpicker"  data-style="selectpicker-append btn btn-light dropdown-toggle text-uppercase text-lg btn-block text-left" tabindex="2" data-live-search="true" name="partidoId">
+                      <option value=""  selected disabled hidden>SELECCIONE PARTIDO ...</option>
+                       
+                            <option value="" disabled>Descripción  |  Jornada</option>
+                          
+                            <% partidos.forEach((partido) => { %>                                    
+                                <option value="<%= partido.PartidoID %>"><%= partido.Descripcion+"  "+partido.Jornada %></option>                                    
+                            <% }) %>
+                         
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" tabindex="5" type="button" name="nuevoPartido" onclick="location.href = '\\football_match\\register';" >Nuevo</button>
+                        <button type="submit" name="enviar" href="#" tabindex="4" class="btn btn-success btn-circle btn-lg">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                   
+                  </div>
+                  
+            </form>
+          </div>
+          
+          <!-- /ko -->
+          <!-- Content Row Partido -->
+            <!-- ko foreach: lista2() -->
+              <div class="row" >
+
+                <!-- Card Partido 1 -->
+                <div class="col mb-1">
+                  <div class="card-body">
+                    <div class="row align-items-center text-center">
+                      <div class="col">
+                              <div class="h3 mb-0 font-weight-bold text-gray-800" data-bind="text: descripcion"></div>
+                      </div>
+                        
+                        <div class="col">
+                          <div class="h4 mb-0 font-weight-bold text-gray-800" data-bind="text: jornada"></div>
+                      </div> 
+                      <div class="col">
+                        <div class="h4 mb-0 font-weight-bold text-gray-800" data-bind="text: unidadMovil"></div>
+                      </div> 
+                      <div class="col">
+                        <div class="h4 mb-0 font-weight-bold text-gray-800" data-bind="text: ip"></div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                <!-- End Content Row Partido -->
+              </div>
+          <!-- /ko -->
+          
+           <!-- /ko -->
+          <!-- Content Row Partido -->
+          <!-- ko foreach: lista2() -->
+          <div class="row" >
+
+            <!-- Card Partido 1 -->
+            <div class="col-12 mb-1">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center text-center">
+                  <div class="col-12 col-lg">
+                          <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: descripcion"></div>
+                  </div>
+                    
+                    <div class="col-6 col-lg-3 mr-4">
+                      <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: jornada"></div>
+                  </div> 
+                  <div class="col-6 col-lg-3 mr-4">
+                    <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: unidadMovil"></div>
+                  </div> 
+                  <div class="col-6 col-lg-3 mr-4">
+                    <div class="h1 mb-0 font-weight-bold text-gray-800" data-bind="text: ip"></div>
+                  </div> 
+                </div>
+              </div>
+            </div>
+            <!-- End Content Row Partido -->
+          </div>
+          <!-- /ko -->
+     
+          <!-- End of Main Content -->
+        </div> <!-- /.container-fluid -->
+      </div> <!-- end of id="content" -->
+    </div> <!-- end of id="content-wrapper" -->
+  </div> <!-- end of id="wrapper" -->
+      
+  <%- include ('../partials/footer.ejs'); %>
+  <script src="/vendor/knockout-3.5.0.js"></script>
+  <script src="/vendor/moment.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <!-- <script src="/vendor/popper.min.js"></script> -->
+  <script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+</body>
+
+</html>
